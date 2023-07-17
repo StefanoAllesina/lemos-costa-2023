@@ -1,0 +1,50 @@
+---
+title: "Launching code"
+output: html_notebook
+---
+
+### Required packages/software:
+
+- `rstan`
+- a recent version of *stan* (e.g. 2.26.1 or more recent)
+
+
+### Input
+
+The input is a csv file containing the biomass of species *j* in plot *i* in cell *i,j*. The first column of the file contains the names of the species. For example:
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+read_csv("../data/cadotte_2013/organized_data/cadotte_2013.csv")
+```
+
+In a file with the same name, but ending in "_V.csv" we store the matrix detailing the topology of the tree. Here columns are the species (in the same order as the previous file), rows are ancestors, and a 1 marks the fact that the row/ancestor is a progenitor of the column/species. For example:
+
+```{r, message=FALSE, warning=FALSE}
+read_csv("../data/cadotte_2013/organized_data/cadotte_2013_V.csv")
+```
+
+## Running the code
+
+For each data set, one can run the code using one of four models (see manuscript). The syntax is as follows:
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+source("pipeline.R") # this will take a minute, to compile stan code
+run_model(file_obs = "../data/cadotte_2013/organized_data/cadotte_2013.csv", # data, as above
+          modelnum = 4, # model number
+          seed = 1234, # seed for random number generator
+          num_search = 2, # repeat search multiple times and take the best result
+          num_optim = 2500, # number of rounds for optimization
+          num_rand = 100) # number of randomizations (Yule; another 100 scrambled)
+# This code will take about 1 day to run
+```
+
+Besides the four models described in the manuscript, calling `11`, `12`, `13` and `14` calls the models using a star/broom tree topology. Running each of these sets the baseline for the likelihoods, as described in the manuscript.
+
+## Organizing results
+
+Because the code takes much time, it is convenient to run several instances in parallel (each starting with a different seed for the random number generator). All the outputs will be stored in the *results* folder.
+
+The code `organize_results.R` will combine multiple runs. It will also remove randomizations that failed (i.e., if likelihood falls below that of the corresponding star tree), and will remove duplicate random trees.
+
+

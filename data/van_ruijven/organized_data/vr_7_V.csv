@@ -1,0 +1,16 @@
+Leucanthemum_vulgare,Centaurea_jacea,Plantago_lanceolata,Rumex_acetosa,Festuca_rubra,Holcus_lanatus,Agrostis_capillaris,Anthoxanthum_odoratum
+1,1,1,1,1,1,1,1
+1,1,1,1,0,0,0,0
+0,0,0,0,1,1,1,1
+1,1,1,0,0,0,0,0
+1,1,0,0,0,0,0,0
+0,0,0,0,1,1,0,0
+0,0,0,0,0,0,1,1
+1,0,0,0,0,0,0,0
+0,1,0,0,0,0,0,0
+0,0,1,0,0,0,0,0
+0,0,0,1,0,0,0,0
+0,0,0,0,1,0,0,0
+0,0,0,0,0,1,0,0
+0,0,0,0,0,0,1,0
+0,0,0,0,0,0,0,1
